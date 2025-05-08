@@ -7,6 +7,7 @@ import SignUp from "./client/components/SignUp";
 import { Profile } from "./client/components/Profile";
 import LoginPage from "./pages/LoginPage";
 import FinishAccount from "./client/components/FinishAccount";
+import EventsWithResults from "./client/components/EventsWithResults";
 
 const App: FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: FC = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/finishaccount" element={<FinishAccount />} />
         <Route path="/me" element={<Profile />} />
+        <Route path="/events" element={<EventsWithResults />} />
         {/* Add more routes here as needed */}
       </Routes>
     </Router>

@@ -1,0 +1,390 @@
+// eventsData.ts
+export const eventsData = [
+  {
+    name: "SLS Super Crown 2025",
+    location: "Miami, FL, USA",
+    date: "2025-05-03",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 36.8,
+        country: "USA",
+      },
+      {
+        skater_name: "Gustavo Ribeiro",
+        placement: 2,
+        score: 36.7,
+        country: "POR",
+      },
+      {
+        skater_name: "Felipe Gustavo",
+        placement: 3,
+        score: 36.5,
+        country: "BRA",
+      },
+      { skater_name: "Shirai Sora", placement: 4, score: 27.7, country: "JPN" },
+      {
+        skater_name: "Giovanni Vianna",
+        placement: 5,
+        score: 27.2,
+        country: "BRA",
+      },
+      {
+        skater_name: "Netsuke Kairi",
+        placement: 6,
+        score: 18.2,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2024",
+    location: "São Paulo, Brazil",
+    date: "2024-12-15",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 36.8,
+        country: "USA",
+      },
+      {
+        skater_name: "Giovanni Vianna",
+        placement: 2,
+        score: 36.2,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "X Games Chiba 2024",
+    location: "Chiba, Japan",
+    date: "2024-09-22",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Shirai Sora",
+        placement: 1,
+        score: 94.66,
+        country: "JPN",
+      },
+      {
+        skater_name: "Netsuke Kairi",
+        placement: 2,
+        score: 93.0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Onodera Ginwoo",
+        placement: 3,
+        score: 89.0,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "X Games Ventura 2024",
+    location: "Ventura, CA, USA",
+    date: "2024-07-21",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 95.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Braden Hoban",
+        placement: 2,
+        score: 90.66,
+        country: "USA",
+      },
+      {
+        skater_name: "Gustavo Ribeiro",
+        placement: 3,
+        score: 87.0,
+        country: "POR",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2023",
+    location: "São Paulo, Brazil",
+    date: "2023-12-3",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Giovanni Vianna",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Vincent Milou",
+        placement: 2,
+        score: 0,
+        country: "FRA",
+      },
+      {
+        skater_name: "Gustavo Ribiero",
+        placement: 3,
+        score: 0,
+        country: "POR",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2021",
+    location: "Jacksonville, FL, USA",
+    date: "2021-11-14",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Jagger Eaton",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Lucas Rabelo",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Gustavo Ribiero",
+        placement: 3,
+        score: 0,
+        country: "POR",
+      },
+    ],
+  },
+  {
+    name: "SLS Unsanctioned 2020",
+    location: "Southern California, USA",
+    date: "2020-12-28",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Dashawn Jordan",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Jamie Foy",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Manny Santiago",
+        placement: 3,
+        score: 0,
+        country: "PR",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2019",
+    location: "São Paulo, Brazil",
+    date: "2019-9-22",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Nyjah Juston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 2,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Gustavo Ribiero",
+        placement: 3,
+        score: 0,
+        country: "POR",
+      },
+    ],
+  },
+  {
+    name: "SLS Huntington Beach Finals 2018",
+    location: "Huntington Beach, CA, USA",
+    date: "2018-12-16",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Deshawn Jordan",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Kevin Hoefler",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2017",
+    location: "Los Angeles, CA, USA",
+    date: "2017-9-15",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Shane O'Neill",
+        placement: 2,
+        score: 0,
+        country: "AUS",
+      },
+      {
+        skater_name: "Kevin Hoefler",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2016",
+    location: "Los Angeles, CA, USA",
+    date: "2016-10-2",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Shane O' Neill",
+        placement: 1,
+        score: 0,
+        country: "AUS",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Cody McEntire",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "X Games California 2023",
+    location: "Ventura, CA, USA",
+    date: "2023-07-23",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 95.66,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: 90.66,
+        country: "BRA",
+      },
+      {
+        skater_name: "Ryan Decenzo",
+        placement: 3,
+        score: 88.0,
+        country: "CAN",
+      },
+    ],
+  },
+  {
+    name: "X Games Chiba 2023",
+    location: "Chiba, Japan",
+    date: "2023-05-14",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Onodera Ginwoo",
+        placement: 1,
+        score: 90.33,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: 83.66,
+        country: "BRA",
+      },
+      { skater_name: "Jamie Foy", placement: 3, score: 83.33, country: "USA" },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2022",
+    location: "Rio de Janeiro, Brazil",
+    date: "2022-11-06",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Gustavo Ribeiro",
+        placement: 1,
+        score: 27.9,
+        country: "POR",
+      },
+      {
+        skater_name: "Braden Hoban",
+        placement: 2,
+        score: 27.7,
+        country: "USA",
+      },
+      { skater_name: "Chris Jolin", placement: 3, score: 27.2, country: "USA" },
+    ],
+  },
+  {
+    name: "Olympics Tokyo 2020",
+    location: "Tokyo, Japan",
+    date: "2021-07-25",
+    host: "Olympics",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: null,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: null,
+        country: "BRA",
+      },
+      {
+        skater_name: "Jagger Eaton",
+        placement: 3,
+        score: null,
+        country: "USA",
+      },
+    ],
+  },
+];

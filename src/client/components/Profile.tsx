@@ -1,5 +1,6 @@
-import { MapPin } from "lucide-react";
+import { MapPin, Settings } from "lucide-react";
 import { useUserProfile } from "../api/useUserProfile";
+import FavoriteEvents from "./FavoriteEvents";
 
 export const Profile = () => {
   const {
@@ -10,7 +11,6 @@ export const Profile = () => {
     formData,
     handleInputChange,
     handleSubmit,
-    handleLogout,
     handleEditClick,
     handleCancelClick,
   } = useUserProfile();
@@ -19,8 +19,17 @@ export const Profile = () => {
   if (error) return <div className="p-4 text-red-500">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-black px-4 py-12 flex justify-center items-start">
-      <div className="w-full max-w-3xl rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen bg-black px-4 py-12 flex flex-col items-center">
+      {/* Profile Card */}
+      <div className="relative w-full max-w-3xl rounded-2xl shadow-xl p-8">
+        {/* Settings Icon */}
+        <button
+          onClick={handleEditClick}
+          className="absolute top-4 right-4 text-gray-300 hover:text-white"
+        >
+          <Settings size={24} />
+        </button>
+
         <div className="flex items-center space-x-4 mb-8">
           {user?.profile_picture ? (
             <img
@@ -141,23 +150,14 @@ export const Profile = () => {
             <p className="text-gray-400 font-semibold text-sm">
               Member Since: {new Date(user!.created_at).toLocaleDateString()}
             </p>
-
-            <div className="flex justify-end space-x-4 pt-6">
-              <button
-                onClick={handleEditClick}
-                className="px-4 py-2 text-sm rounded-md font-semibold bg-white text-black hover:bg-gray-100 transition"
-              >
-                Edit Profile
-              </button>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 text-sm rounded-md border font-semibold border-red-500 text-red-500 hover:bg-neutral-700 transition"
-              >
-                Logout
-              </button>
-            </div>
           </div>
         )}
+      </div>
+
+      {/* Favorite Events Positioned Below */}
+      <div className="w-full max-w-4xl mt-12">
+        <h2 className="text-2xl font-semibold text-white mb-4"></h2>
+        <FavoriteEvents />
       </div>
     </div>
   );

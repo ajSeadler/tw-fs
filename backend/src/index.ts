@@ -1,21 +1,30 @@
 import dotenv from "dotenv";
 dotenv.config();
+
 import express from "express";
 import cors from "cors";
+
 import authRoutes from "./routes/auth";
-import profileRoutes from "./routes/profile"; // Add the import for profile routes
+import profileRoutes from "./routes/profile";
+import eventRoutes from "./routes/events";
+import resultRoutes from "./routes/results";
+import favoritesRoutes from "./routes/favorites"; // ← import it
 
 const app = express();
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Use the auth routes
-app.use("/api/auth", authRoutes); // Adjust to ensure auth routes are prefixed with /api/auth
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api", profileRoutes);
 
-// Use the profile routes
-app.use("/api", profileRoutes); // Profile routes are now handled under /api
+app.use("/api/events", eventRoutes);
+app.use("/api/results", resultRoutes);
+app.use("/api/favorites", favoritesRoutes); // ← mount it
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });

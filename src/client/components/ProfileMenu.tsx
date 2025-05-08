@@ -26,7 +26,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profileOpen, setProfileOpen }) => {
       <div className="relative">
         <button
           onClick={() => setProfileOpen((prev) => !prev)}
-          className="flex items-center space-x-1 p-1 rounded-md hover:bg-neutral-800 transition"
+          className="flex items-center space-x-1 p-5 rounded-md hover:bg-neutral-800  transition"
           aria-label="User menu"
         >
           <Lock className="h-5 w-5 text-gray-400" />

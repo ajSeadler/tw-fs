@@ -24,7 +24,7 @@ const Navbar: FC = () => {
 
   return (
     <>
-      <nav className="bg-neutral-950 border-b border-neutral-800 sticky top-0 z-50">
+      <nav className="bg-neutral-950 border-b border-neutral-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Left: Logo + Links */}
@@ -35,16 +35,10 @@ const Navbar: FC = () => {
               >
                 <BiTargetLock className="h-6 w-6" />
                 <span className="ml-2 text-xl font-semibold tracking-wide">
-                  BitHappens
+                  FlatSpot
                 </span>
               </a>
               <div className="hidden md:flex space-x-4">
-                <a
-                  href="/about"
-                  className="text-gray-300 hover:text-gray-100 px-2 py-1 rounded-md text-sm font-medium transition"
-                >
-                  About
-                </a>
                 <a
                   href="/events"
                   className="text-gray-300 hover:text-gray-100 px-2 py-1 rounded-md text-sm font-medium transition"

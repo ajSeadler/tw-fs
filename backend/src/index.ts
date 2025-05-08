@@ -13,7 +13,6 @@ import favoritesRoutes from "./routes/favorites"; // ← import it
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -23,7 +22,7 @@ app.use("/api", profileRoutes);
 
 app.use("/api/events", eventRoutes);
 app.use("/api/results", resultRoutes);
-app.use("/api/favorites", favoritesRoutes); // ← mount it
+app.use("/api/favorites", favoritesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

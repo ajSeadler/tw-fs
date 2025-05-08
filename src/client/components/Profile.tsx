@@ -1,6 +1,9 @@
 import { MapPin, Settings } from "lucide-react";
 import { useUserProfile } from "../api/useUserProfile";
 import FavoriteEvents from "./FavoriteEvents";
+import FavoriteEventTypes from "./FavoriteEventTypes";
+import LastFavoritedEvent from "./LastFavoritedEvent";
+import TopPerformerStats from "./TopPerformerStats";
 
 export const Profile = () => {
   const {
@@ -21,7 +24,7 @@ export const Profile = () => {
   return (
     <div className="min-h-screen bg-black px-4 py-12 flex flex-col items-center">
       {/* Profile Card */}
-      <div className="relative w-full max-w-3xl rounded-2xl shadow-xl p-8">
+      <div className="relative w-auto max-w-auto  rounded-2xl shadow-xl p-8">
         {/* Settings Icon */}
         <button
           onClick={handleEditClick}
@@ -30,7 +33,7 @@ export const Profile = () => {
           <Settings size={24} />
         </button>
 
-        <div className="flex items-center space-x-4 mb-8">
+        <div className="flex items-center space-x-4 mb-10">
           {user?.profile_picture ? (
             <img
               src={user.profile_picture}
@@ -47,6 +50,18 @@ export const Profile = () => {
               {user?.first_name} {user?.last_name}
             </h1>
             <p className="text-gray-400">@{user?.username}</p>
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center space-x-8 mb-8">
+          <div className="">
+            <FavoriteEventTypes />
+          </div>
+          <div className="">
+            <LastFavoritedEvent />
+          </div>
+          <div className="">
+            <TopPerformerStats />
           </div>
         </div>
 

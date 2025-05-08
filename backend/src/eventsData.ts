@@ -320,6 +320,79 @@ export const eventsData = [
     ],
   },
   {
+    name: "X Games Summer 2022",
+    location: "Ventura, CA, USA",
+    date: "2022-07-20",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Shane O' Neill",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Vincent Milou",
+        placement: 2,
+        score: 0,
+        country: "FRA",
+      },
+      {
+        skater_name: "Ryan Decenzo",
+        placement: 3,
+        score: 0,
+        country: "CAN",
+      },
+    ],
+  },
+  {
+    name: "X Games Chiba 2022",
+    location: "Chiba, Japan",
+    date: "2022-04-22",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Daiki Ikeda",
+        placement: 2,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Sora Shirai",
+        placement: 3,
+        score: 0,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2024",
+    location: "Tampa FL, USA ",
+    date: "2024-04-7",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      { skater_name: "Jake Ilardi", placement: 3, score: 0, country: "USA" },
+    ],
+  },
+  {
     name: "X Games Chiba 2023",
     location: "Chiba, Japan",
     date: "2023-05-14",

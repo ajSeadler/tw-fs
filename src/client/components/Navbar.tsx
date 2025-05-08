@@ -35,7 +35,7 @@ const Navbar: FC = () => {
               >
                 <BiTargetLock className="h-6 w-6" />
                 <span className="ml-2 text-xl font-semibold tracking-wide">
-                  FlatSpot
+                  SkateIndex
                 </span>
               </a>
               <div className="hidden md:flex space-x-4">

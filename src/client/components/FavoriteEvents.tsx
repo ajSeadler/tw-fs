@@ -10,6 +10,11 @@ const FavoriteEvents: React.FC = () => {
   const [favoriteIds, setFavoriteIds] = useState<Set<number>>(new Set());
   const [resultsMap, setResultsMap] = useState<Record<number, Result[]>>({});
   const [loading, setLoading] = useState(true);
+  const [yearFilter, setYearFilter] = useState("All");
+  const [typeFilter, setTypeFilter] = useState<"All" | "SLS" | "X Games">(
+    "All"
+  );
+
   const token = localStorage.getItem("token")!;
 
   useEffect(() => {
@@ -24,17 +29,12 @@ const FavoriteEvents: React.FC = () => {
         const favIdSet = new Set(favIds);
         setFavoriteIds(favIdSet);
 
-        // Fetch results for each favorited event
         const resultsEntries = await Promise.all(
           favIds.map(async (eventId: number) => {
             try {
               const results = await fetchResultsFor(eventId);
               return [eventId, results] as const;
-            } catch (err) {
-              console.error(
-                `Failed to load results for event ${eventId}:`,
-                err
-              );
+            } catch {
               return [eventId, []] as const;
             }
           })
@@ -64,90 +64,160 @@ const FavoriteEvents: React.FC = () => {
     }
   };
 
+  const favoriteEvents = events.filter((e) => favoriteIds.has(e.id));
+
+  const availableYears = Array.from(
+    new Set(favoriteEvents.map((e) => new Date(e.date).getFullYear()))
+  ).sort((a, b) => b - a);
+
+  const filteredEvents = favoriteEvents.filter((event) => {
+    const matchesYear =
+      yearFilter === "All" ||
+      new Date(event.date).getFullYear().toString() === yearFilter;
+    const matchesType =
+      typeFilter === "All" ||
+      (typeFilter === "SLS" && event.name.toLowerCase().includes("sls")) ||
+      (typeFilter === "X Games" &&
+        event.name.toLowerCase().includes("x games"));
+    return matchesYear && matchesType;
+  });
+
   if (loading)
     return (
       <p className="text-center text-gray-400 mt-20">Loading favorites…</p>
     );
-
-  const favoriteEvents = events.filter((e) => favoriteIds.has(e.id));
-  if (favoriteEvents.length === 0) {
+  if (favoriteEvents.length === 0)
     return <p className="text-center text-gray-400 mt-20">No favorites yet.</p>;
-  }
 
   return (
-    <div className="bg-black min-h-screen p-6">
-      <div className=" mx-auto space-y-10">
-        {favoriteEvents.map((event) => (
-          <div
-            key={event.id}
-            className="bg-neutral-900 rounded-2xl p-6 shadow-lg"
+    <div className="p-6">
+      <div className="max-w-4xl mx-auto mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setTypeFilter("All")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "All"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
           >
-            <div className="flex justify-between items-center mb-4">
-              <div>
-                <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
-                  {event.name.toLowerCase().includes("sls") && (
-                    <img
-                      src="/images/sls-white.png"
-                      alt="SLS"
-                      className="h-10"
-                    />
-                  )}
-                  {event.name.toLowerCase().includes("x games") && (
-                    <img
-                      src="/images/xgames.png"
-                      alt="X Games"
-                      className="h-10"
-                    />
-                  )}
-                  {event.name}
-                </h2>
-                <p className="text-sm text-gray-500">
-                  {event.location} · {new Date(event.date).toLocaleDateString()}{" "}
-                  · {event.host}
-                </p>
-              </div>
-              <button
-                onClick={() => handleUnfavorite(event.id)}
-                className="p-2.5 rounded-md text-green-500 shadow-md hover:shadow-none transition"
-                aria-label="Unfavorite event"
-              >
-                <ThumbsUpIcon className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Results Table */}
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-neutral-800">
-                  <tr>
-                    <th className="py-2 px-4 text-white">#</th>
-                    <th className="py-2 px-4 text-white">Skater</th>
-                    <th className="py-2 px-4 text-white">Country</th>
-                    <th className="py-2 px-4 text-white">Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(resultsMap[event.id] || []).map((r) => (
-                    <tr
-                      key={r.id}
-                      className="border-b border-neutral-700 hover:bg-gray-700 transition"
-                    >
-                      <td className="py-2 px-4 font-medium text-white">
-                        {r.placement}
-                      </td>
-                      <td className="py-2 px-4 text-white">{r.skater_name}</td>
-                      <td className="py-2 px-4 text-gray-500">{r.country}</td>
-                      <td className="py-2 px-4 text-white">
-                        {r.score !== null ? Number(r.score).toFixed(2) : "N/A"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ))}
+            All
+          </button>
+          <button
+            onClick={() => setTypeFilter("SLS")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "SLS"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            SLS
+          </button>
+          <button
+            onClick={() => setTypeFilter("X Games")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "X Games"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            X Games
+          </button>
+        </div>
+        <select
+          value={yearFilter}
+          onChange={(e) => setYearFilter(e.target.value)}
+          className="bg-neutral-800 text-white rounded-md px-4 py-2 text-sm"
+        >
+          <option value="All">All Years</option>
+          {availableYears.map((year) => (
+            <option key={year} value={year.toString()}>
+              {year}
+            </option>
+          ))}
+        </select>
       </div>
+
+      {filteredEvents.length === 0 ? (
+        <p className="text-center text-gray-500 mt-10">
+          No events match your filters.
+        </p>
+      ) : (
+        <div className="space-y-10">
+          {filteredEvents.map((event) => (
+            <div
+              key={event.id}
+              className="bg-neutral-900 rounded-2xl p-6 shadow-lg"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
+                    {event.name.toLowerCase().includes("sls") && (
+                      <img
+                        src="/images/sls-white.png"
+                        alt="SLS"
+                        className="h-10"
+                      />
+                    )}
+                    {event.name.toLowerCase().includes("x games") && (
+                      <img
+                        src="/images/xgames.png"
+                        alt="X Games"
+                        className="h-10"
+                      />
+                    )}
+                    {event.name}
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    {event.location} ·{" "}
+                    {new Date(event.date).toLocaleDateString()} · {event.host}
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleUnfavorite(event.id)}
+                  className="p-2.5 rounded-md text-green-500 shadow-md hover:shadow-none transition"
+                >
+                  <ThumbsUpIcon className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-left text-sm">
+                  <thead className="bg-neutral-800">
+                    <tr>
+                      <th className="py-2 px-4 text-white">#</th>
+                      <th className="py-2 px-4 text-white">Skater</th>
+                      <th className="py-2 px-4 text-white">Country</th>
+                      <th className="py-2 px-4 text-white">Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(resultsMap[event.id] || []).map((r) => (
+                      <tr
+                        key={r.id}
+                        className="border-b border-neutral-700 hover:bg-gray-700 transition"
+                      >
+                        <td className="py-2 px-4 font-medium text-white">
+                          {r.placement}
+                        </td>
+                        <td className="py-2 px-4 text-white">
+                          {r.skater_name}
+                        </td>
+                        <td className="py-2 px-4 text-gray-500">{r.country}</td>
+                        <td className="py-2 px-4 text-white">
+                          {r.score !== null
+                            ? Number(r.score).toFixed(2)
+                            : "N/A"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

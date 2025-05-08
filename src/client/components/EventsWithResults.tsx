@@ -26,6 +26,9 @@ const EventsWithResults: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [slsCount, setSlsCount] = useState(0);
   const [xGamesCount, setXGamesCount] = useState(0);
+  const [yearFilter, setYearFilter] = useState<string>("all");
+  const [typeFilter, setTypeFilter] = useState<string>("all");
+
   const token = localStorage.getItem("token")!;
 
   useEffect(() => {
@@ -62,7 +65,6 @@ const EventsWithResults: React.FC = () => {
         const favIds = await fetchFavorites(token);
         setFavoritedEvents(new Set(favIds));
 
-        // Count SLS and X Games events
         const slsEvents = evts.filter((e) =>
           e.name.toLowerCase().includes("sls")
         );
@@ -77,6 +79,7 @@ const EventsWithResults: React.FC = () => {
         setLoading(false);
       }
     }
+
     loadAll();
   }, [token]);
 
@@ -102,6 +105,21 @@ const EventsWithResults: React.FC = () => {
     setFavoritedEvents(newSet);
   };
 
+  const filteredEvents = events.filter((event) => {
+    const matchesYear =
+      yearFilter === "all" ||
+      new Date(event.date).getFullYear().toString() === yearFilter;
+    const matchesType =
+      typeFilter === "all" ||
+      (typeFilter === "sls" && event.name.toLowerCase().includes("sls")) ||
+      (typeFilter === "xgames" && event.name.toLowerCase().includes("x games"));
+    return matchesYear && matchesType;
+  });
+
+  const uniqueYears = Array.from(
+    new Set(events.map((e) => new Date(e.date).getFullYear().toString()))
+  ).sort((a, b) => parseInt(b) - parseInt(a));
+
   return (
     <div className="bg-black min-h-screen p-6">
       <Leaderboard leaders={leaders} loading={loading} />
@@ -118,8 +136,57 @@ const EventsWithResults: React.FC = () => {
         </div>
       </div>
 
+      {/* Filters */}
+      <div className="max-w-4xl mx-auto mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setTypeFilter("all")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "all"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setTypeFilter("sls")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "sls"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            SLS
+          </button>
+          <button
+            onClick={() => setTypeFilter("xgames")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "xgames"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            X Games
+          </button>
+        </div>
+        <select
+          value={yearFilter}
+          onChange={(e) => setYearFilter(e.target.value)}
+          className="bg-neutral-800 text-white rounded-md px-4 py-2 text-sm"
+        >
+          <option value="all">All Years</option>
+          {uniqueYears.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Event List */}
       <div className="max-w-4xl mx-auto space-y-8 mt-8">
-        {events.map((event) => {
+        {filteredEvents.map((event) => {
           const isFav = favoritedEvents.has(event.id);
 
           return (
@@ -143,7 +210,6 @@ const EventsWithResults: React.FC = () => {
                     )}
                     {event.name}
                   </h2>
-
                   <p className="text-sm text-gray-500">
                     {event.location} ·{" "}
                     {new Date(event.date).toLocaleDateString()} · {event.host}
@@ -151,14 +217,11 @@ const EventsWithResults: React.FC = () => {
                 </div>
                 <button
                   onClick={() => handleFavorite(event.id)}
-                  className={`
-                    p-2.5 rounded-md transition-shadow shadow-sm
-                    ${
-                      isFav
-                        ? "text-green-500 shadow-lg"
-                        : "text-white hover:text-green-700 hover:shadow-lg"
-                    }
-                  `}
+                  className={`p-2.5 rounded-md transition-shadow shadow-sm ${
+                    isFav
+                      ? "text-green-500 shadow-lg"
+                      : "text-white hover:text-green-700 hover:shadow-lg"
+                  }`}
                   aria-label={isFav ? "Unfavorite event" : "Favorite event"}
                 >
                   <ThumbsUpIcon className="w-5 h-5" />

@@ -75,9 +75,10 @@ const LastFavoritedEvent: React.FC = () => {
             </div>
           )}
           <div className="text-left">
-            <p className="text-white font-semibold text-base">
+            <p className="text-white font-semibold text-base truncate">
               {lastEvent ? lastEvent.name : "No data yet"}
             </p>
+
             <p className="text-gray-500 text-xs">
               {lastEvent
                 ? `${lastEvent.location} · ${new Date(

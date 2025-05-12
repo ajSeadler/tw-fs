@@ -8,21 +8,29 @@ import { Profile } from "./client/components/Profile";
 import LoginPage from "./pages/LoginPage";
 import FinishAccount from "./client/components/FinishAccount";
 import EventsWithResults from "./client/components/EventsWithResults";
+import Footer from "./client/components/Footer";
+import TermsAndConditions from "./client/components/TermsAndConditions";
+import ContactSection from "./client/components/ContactSection";
+import GeneralSupport from "./client/components/GeneralSupport";
+import ReportBug from "./client/components/ReportBug";
 
 const App: FC = () => {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Set the home route */}
-        <Route path="/login" element={<LoginPage />} />{" "}
-        {/* Set the home route */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/finishaccount" element={<FinishAccount />} />
         <Route path="/me" element={<Profile />} />
         <Route path="/events" element={<EventsWithResults />} />
-        {/* Add more routes here as needed */}
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/support&feedback" element={<ContactSection />} />
+        <Route path="/support" element={<GeneralSupport />} />
+        <Route path="/bug-report" element={<ReportBug />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };

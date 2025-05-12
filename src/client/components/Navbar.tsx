@@ -1,17 +1,21 @@
 import type { FC } from "react";
 import { useState, useRef, useEffect } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { FiSearch, FiBell, FiPlus } from "react-icons/fi";
-import { BiTargetLock } from "react-icons/bi";
-import ProfileMenu from "./ProfileMenu"; // Import the ProfileMenu component
+import { FiSearch, FiBell, FiPlus, FiLogIn, FiUserPlus } from "react-icons/fi";
+import ProfileMenu from "./ProfileMenu";
+import { useLocation } from "react-router-dom"; // Import useLocation
 
 const Navbar: FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [plusOpen, setPlusOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const plusRef = useRef<HTMLDivElement>(null);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const prevScrollY = useRef(0); // Keeps track of the previous scroll position
 
-  // Close dropdowns on outside click
+  const plusRef = useRef<HTMLDivElement>(null);
+  const location = useLocation(); // Get the current path
+
+  // close + menu on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (plusRef.current && !plusRef.current.contains(e.target as Node)) {
@@ -22,9 +26,34 @@ const Navbar: FC = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  // Scroll event listener for hiding/revealing navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > prevScrollY.current) {
+        // Scroll down
+        setShowNavbar(false);
+      } else {
+        // Scroll up
+        setShowNavbar(true);
+      }
+      prevScrollY.current = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // detect token
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
   return (
     <>
-      <nav className="bg-neutral-950 border-b border-neutral-700 sticky top-0 z-50">
+      <nav
+        className={`backdrop-blur-sm border-b border-neutral-700 sticky top-0 z-50 transition-all duration-300 ${
+          showNavbar ? "transform translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Left: Logo + Links */}
@@ -33,23 +62,42 @@ const Navbar: FC = () => {
                 href="/"
                 className="flex items-center text-gray-100 hover:text-white transition"
               >
-                <BiTargetLock className="h-6 w-6" />
                 <span className="ml-2 text-xl font-semibold tracking-wide">
-                  SkateIndex
+                  Home
                 </span>
               </a>
               <div className="hidden md:flex space-x-4">
                 <a
                   href="/events"
-                  className="text-gray-300 hover:text-gray-100 px-2 py-1 rounded-md text-sm font-medium transition"
+                  className={`relative group text-gray-300 hover:text-white px-2 py-1 text-sm font-medium focus:outline-none ${
+                    location.pathname === "/events" ? "text-white" : ""
+                  }`}
                 >
                   Events
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 block h-0.5 bg-white transition-all duration-300 ${
+                      location.pathname === "/events"
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
                 </a>
                 <a
-                  href="/contact"
-                  className="text-gray-300 hover:text-gray-100 px-2 py-1 rounded-md text-sm font-medium transition"
+                  href="/support&feedback"
+                  className={`relative group text-gray-300 hover:text-white px-2 py-1 text-sm font-medium focus:outline-none ${
+                    location.pathname === "/support&feedback"
+                      ? "text-white"
+                      : ""
+                  }`}
                 >
-                  Contact
+                  Support & Feedback
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 block h-0.5 bg-white transition-all duration-300 ${
+                      location.pathname === "/support&feedback"
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
                 </a>
               </div>
             </div>
@@ -69,49 +117,68 @@ const Navbar: FC = () => {
 
             {/* Right: Actions */}
             <div className="flex items-center space-x-4">
-              {/* Plus Menu */}
-              <div className="relative" ref={plusRef}>
-                <button
-                  onClick={() => setPlusOpen((o) => !o)}
-                  className="p-2 rounded-md text-gray-300 hover:bg-neutral-800 hover:text-white transition"
-                  aria-label="Create new…"
-                >
-                  <FiPlus className="h-5 w-5" />
-                </button>
-                {plusOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-neutral-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-20 py-1 z-10">
-                    <a
-                      href="/new/event"
-                      className="block px-4 py-2 text-sm text-gray-200 hover:bg-neutral-700 transition"
+              {!token ? (
+                <div className="flex items-center space-x-4">
+                  <a
+                    href="/login"
+                    className="relative group text-gray-300 hover:text-white px-3 py-2 text-sm font-medium focus:outline-none"
+                  >
+                    <FiLogIn className="inline-block mr-1 w-5 h-5 align-text-bottom" />
+                    Login
+                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 block h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full" />
+                  </a>
+
+                  <a
+                    href="/signup"
+                    className="inline-flex items-center bg-white text-neutral-900 px-4 py-2 text-sm font-medium rounded-md shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50 transition"
+                  >
+                    <FiUserPlus className="inline-block mr-1 w-5 h-5 align-text-bottom" />
+                    Sign Up
+                  </a>
+                </div>
+              ) : (
+                <>
+                  <div className="relative" ref={plusRef}>
+                    <button
+                      onClick={() => setPlusOpen((o) => !o)}
+                      className="p-2 rounded-md text-gray-300 hover:bg-neutral-800 hover:text-white transition"
+                      aria-label="Create new…"
                     >
-                      New Event
-                    </a>
-                    <a
-                      href="/new/park"
-                      className="block px-4 py-2 text-sm text-gray-200 hover:bg-neutral-700 transition"
-                    >
-                      New Skatepark
-                    </a>
+                      <FiPlus className="h-5 w-5" />
+                    </button>
+                    {plusOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-neutral-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-20 py-1 z-10">
+                        <a
+                          href="/new/event"
+                          className="block px-4 py-2 text-sm text-gray-200 hover:bg-neutral-700 transition"
+                        >
+                          New Event
+                        </a>
+                        <a
+                          href="/new/park"
+                          className="block px-4 py-2 text-sm text-gray-200 hover:bg-neutral-700 transition"
+                        >
+                          New Skatepark
+                        </a>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              {/* Notifications */}
-              <button
-                className="relative p-2 rounded-md text-gray-300 hover:bg-neutral-800 hover:text-white transition"
-                aria-label="Notifications"
-              >
-                <FiBell className="h-5 w-5" />
-                <span className="absolute top-1 right-1 inline-block w-2 h-2 bg-red-600 rounded-full" />
-              </button>
+                  <button
+                    className="relative p-2 rounded-md text-gray-300 hover:bg-neutral-800 hover:text-white transition"
+                    aria-label="Notifications"
+                  >
+                    <FiBell className="h-5 w-5" />
+                    <span className="absolute top-1 right-1 inline-block w-2 h-2 bg-red-600 rounded-full" />
+                  </button>
 
-              {/* Profile Menu */}
-              <ProfileMenu
-                profileOpen={profileOpen}
-                setProfileOpen={setProfileOpen}
-              />
+                  <ProfileMenu
+                    profileOpen={profileOpen}
+                    setProfileOpen={setProfileOpen}
+                  />
+                </>
+              )}
 
-              {/* Mobile Menu Toggle */}
               <div className="md:hidden">
                 <button
                   onClick={() => setMobileOpen((o) => !o)}
@@ -159,7 +226,7 @@ const Navbar: FC = () => {
               href="/contact"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-gray-100 transition"
             >
-              Contact
+              Support & Feedback
             </a>
             <a
               href="/dashboard"

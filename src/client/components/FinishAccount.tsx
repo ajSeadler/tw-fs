@@ -19,8 +19,8 @@ const FinishAccount: FC = () => {
   return (
     <>
       <div className="bg-black min-h-screen min-w-screen flex flex-col">
-        <div className="max-w-xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-white ">
-          <h1 className="text-2xl font-bold mb-6">Complete Your Account</h1>
+        <div className="max-w-xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-white">
+          <h1 className="text-2xl font-semibold mb-6">Complete Your Account</h1>
           <form onSubmit={handleFormSubmit} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
@@ -29,7 +29,7 @@ const FinishAccount: FC = () => {
                   name="username"
                   value={formData?.username || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -40,7 +40,7 @@ const FinishAccount: FC = () => {
                   name="first_name"
                   value={formData?.first_name || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -49,7 +49,7 @@ const FinishAccount: FC = () => {
                   name="last_name"
                   value={formData?.last_name || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -57,8 +57,9 @@ const FinishAccount: FC = () => {
                 <input
                   name="email"
                   value={formData?.email || ""}
+                  disabled
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-gray-400 placeholder-zinc-500 focus:outline-noney"
                 />
               </div>
               <div>
@@ -67,7 +68,7 @@ const FinishAccount: FC = () => {
                   name="location"
                   value={formData?.location || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -76,7 +77,7 @@ const FinishAccount: FC = () => {
                   name="bio"
                   value={formData?.bio || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -87,7 +88,7 @@ const FinishAccount: FC = () => {
                   name="profile_picture"
                   value={formData?.profile_picture || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -96,13 +97,13 @@ const FinishAccount: FC = () => {
               <button
                 type="button"
                 onClick={handleCancelClick}
-                className="px-4 py-2 text-sm rounded-md border border-gray-400 text-gray-300 hover:bg-neutral-700 transition"
+                className="px-6 py-2 text-sm rounded-md border border-gray-400 text-gray-300 hover:bg-neutral-700 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 text-sm rounded-md border-2 border-green-500 text-green-400 hover:bg-neutral-700 transition font-medium"
+                className="px-6 py-2 text-sm rounded-md border-2 border-green-500 text-green-400 hover:bg-neutral-700 transition font-medium"
               >
                 Save Changes
               </button>

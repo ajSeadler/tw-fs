@@ -19,33 +19,43 @@ if (!JWT_SECRET) {
 
 // POST /api/register
 router.post("/register", async (req: Request, res: Response): Promise<void> => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    res.status(400).json({ error: "Email and password required" });
+  const { firstName, lastName, email, password } = req.body;
+
+  // Validation
+  if (!firstName || !lastName || !email || !password) {
+    res.status(400).json({
+      error: "First name, last name, email, and password are required",
+    });
     return;
   }
 
   try {
+    // Hash password
     const hashed = await bcrypt.hash(password, 10);
+
+    // Insert user into database
     const { rows } = await pool.query(
-      `INSERT INTO users (email, password)
-       VALUES ($1, $2)
-       RETURNING id, email`,
-      [email, hashed]
+      `INSERT INTO users (email, password, first_name, last_name)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, email, first_name, last_name, created_at`,
+      [email, hashed, firstName, lastName]
     );
     const user = rows[0];
 
-    // Sign a JWT
+    // Create JWT token
     const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
       expiresIn: "1h",
     });
 
+    // Send the response with the user and token
     res.status(201).json({ user, token });
   } catch (err: any) {
     console.error("Error in /api/register:", err);
     if (err.code === "23505") {
+      // Duplicate email error
       res.status(409).json({ error: "Email already registered" });
     } else {
+      // Internal server error
       res.status(500).json({ error: err.message });
     }
   }

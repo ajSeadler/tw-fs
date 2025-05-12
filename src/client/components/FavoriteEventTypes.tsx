@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import { fetchEvents } from "../api/events";
 import { fetchFavorites } from "../api/favorites";
 
-type EventType = "sls" | "x games";
+type EventType = "sls" | "x games" | "tampa";
 
 const LOGO_MAP: Record<EventType, string> = {
   sls: "/images/sls-white.png",
   "x games": "/images/xgames.png",
+  tampa: "/images/tampa.png", // using xgames image temporarily
 };
 
 const inferSeries = (name: string): EventType | null => {
   const lc = name.toLowerCase();
   if (lc.includes("sls")) return "sls";
   if (lc.includes("x games")) return "x games";
+  if (lc.includes("tampa")) return "tampa";
   return null;
 };
 
@@ -32,7 +34,11 @@ const FavoriteEventTypes: React.FC = () => {
         ]);
         const favEvents = allEvents.filter((e) => favIds.includes(e.id));
 
-        const counts: Record<EventType, number> = { sls: 0, "x games": 0 };
+        const counts: Record<EventType, number> = {
+          sls: 0,
+          "x games": 0,
+          tampa: 0,
+        };
 
         favEvents.forEach((e) => {
           const series = inferSeries(e.name);
@@ -83,7 +89,7 @@ const FavoriteEventTypes: React.FC = () => {
                     className="max-h-6 object-contain"
                   />
                 </div>
-                <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-neutral-800 text-gray-400 text-xs px-3 py-2 rounded-lg shadow-xl border-1 border-gray-700 whitespace-nowrap z-10">
+                <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-neutral-800 text-gray-400 text-xs px-3 py-2 rounded-lg shadow-xl border border-gray-700 whitespace-nowrap z-10">
                   <span className="font-semibold">{type.toUpperCase()}</span> •{" "}
                   {count} event{count > 1 ? "s" : ""}
                 </div>

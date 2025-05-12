@@ -1,7 +1,8 @@
-// eventsData.ts
-export const eventsData = [
+import type { Event } from "./types";
+
+export const eventsData: Event[] = [
   {
-    name: "SLS Super Crown 2025",
+    name: "SLS Miami 2025",
     location: "Miami, FL, USA",
     date: "2025-05-03",
     host: "Street League",
@@ -60,7 +61,7 @@ export const eventsData = [
     ],
   },
   {
-    name: "X Games Chiba 2024",
+    name: "X Games Chiba 2024 – Men's Skateboarding - Street",
     location: "Chiba, Japan",
     date: "2024-09-22",
     host: "X Games",
@@ -86,7 +87,7 @@ export const eventsData = [
     ],
   },
   {
-    name: "X Games Ventura 2024",
+    name: "X Games Street Ventura 2024 – Men's Skateboarding - Street",
     location: "Ventura, CA, USA",
     date: "2024-07-21",
     host: "X Games",
@@ -293,8 +294,88 @@ export const eventsData = [
       },
     ],
   },
+
   {
-    name: "X Games California 2023",
+    name: "SLS Super Crown 2015",
+    location: "Chicago, Illinois, USA",
+    date: "2015-10-04",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 1,
+        score: "35.8",
+        country: "BRA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: "35.7",
+        country: "USA",
+      },
+      {
+        skater_name: "Luan Oliveira",
+        placement: 3,
+        score: "34.1",
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2014",
+    location: "Newark, New Jersey, USA",
+    date: "2014-08-24",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: "0",
+        country: "USA",
+      },
+      {
+        skater_name: "Torey Pudwill",
+        placement: 2,
+        score: "0",
+        country: "USA",
+      },
+      {
+        skater_name: "Ishod Wair",
+        placement: 3,
+        score: "0",
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "SLS Super Crown 2013",
+    location: "Newark, New Jersey, USA",
+    date: "2013-08-25",
+    host: "Street League",
+    results: [
+      {
+        skater_name: "Chris Cole",
+        placement: 1,
+        score: "52.8",
+        country: "USA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: "52.4",
+        country: "USA",
+      },
+      {
+        skater_name: "Luan Oliveira",
+        placement: 3,
+        score: "49.3",
+        country: "BRA",
+      },
+    ],
+  },
+
+  {
+    name: "X Games California 2023 – Men's Skateboarding - Street",
     location: "Ventura, CA, USA",
     date: "2023-07-23",
     host: "X Games",
@@ -320,7 +401,7 @@ export const eventsData = [
     ],
   },
   {
-    name: "X Games Summer 2022",
+    name: "X Games Summer 2022 – Men's Skateboarding - Street",
     location: "Ventura, CA, USA",
     date: "2022-07-20",
     host: "X Games",
@@ -346,7 +427,7 @@ export const eventsData = [
     ],
   },
   {
-    name: "X Games Chiba 2022",
+    name: "X Games Chiba 2022 – Men's Skateboarding - Street",
     location: "Chiba, Japan",
     date: "2022-04-22",
     host: "X Games",
@@ -393,7 +474,7 @@ export const eventsData = [
     ],
   },
   {
-    name: "X Games Chiba 2023",
+    name: "X Games Chiba 2023 – Men's Skateboarding - Street",
     location: "Chiba, Japan",
     date: "2023-05-14",
     host: "X Games",
@@ -434,8 +515,9 @@ export const eventsData = [
       { skater_name: "Chris Jolin", placement: 3, score: 27.2, country: "USA" },
     ],
   },
+
   {
-    name: "Olympics Tokyo 2020",
+    name: "Olympics Tokyo 2020 – Men's Skateboarding - Street",
     location: "Tokyo, Japan",
     date: "2021-07-25",
     host: "Olympics",
@@ -443,19 +525,696 @@ export const eventsData = [
       {
         skater_name: "Yuto Horigome",
         placement: 1,
-        score: null,
+        score: 0,
         country: "JPN",
       },
       {
         skater_name: "Kelvin Hoefler",
         placement: 2,
-        score: null,
+        score: 0,
         country: "BRA",
       },
       {
         skater_name: "Jagger Eaton",
         placement: 3,
-        score: null,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+
+  {
+    name: "X Games Los Angeles 2010 – Men's Skateboarding - Street",
+    location: "Los Angeles, USA",
+    date: "2010-08-01",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Ryan Sheckler",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Paul Rodriguez",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "X Games Los Angeles 2011 – Men's Skateboarding - Street",
+    location: "Los Angeles, USA",
+    date: "2011-07-31",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Ryan Sheckler",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Chaz Ortiz",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "X Games Los Angeles 2012 – Men's Skateboarding - Street",
+    location: "Los Angeles, USA",
+    date: "2012-07-01",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Paul Rodriguez",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Ryan Sheckler",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "X Games Barcelona 2013 – Men's Skateboarding - Street",
+    location: "Barcelona, Spain",
+    date: "2013-05-18",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Paul Rodriguez",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Manny Santiago",
+        placement: 3,
+        score: 0,
+        country: "PUR",
+      },
+    ],
+  },
+  {
+    name: "X Games Austin 2014 – Men's Skateboarding - Street",
+    location: "Austin, USA",
+    date: "2014-06-08",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 95.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Ishod Wair",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Chaz Ortiz",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "X Games Austin 2015 – Men's Skateboarding - Street",
+    location: "Austin, USA",
+    date: "2015-06-07",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 94.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Luan Oliveira",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "X Games Austin 2016 – Men's Skateboarding - Street",
+    location: "Austin, USA",
+    date: "2016-06-04",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Ryan Decenzo",
+        placement: 1,
+        score: 87.33,
+        country: "CAN",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: 87.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Ishod Wair",
+        placement: 3,
+        score: 86.66,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "X Games Minneapolis 2017 – Men's Skateboarding - Street",
+    location: "Minneapolis, USA",
+    date: "2017-07-16",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Luan Oliveira",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "X Games Norway 2018 – Men's Skateboarding - Street",
+    location: "Oslo, Norway",
+    date: "2018-05-20",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 1,
+        score: 94.33,
+        country: "BRA",
+      },
+      {
+        skater_name: "Jagger Eaton",
+        placement: 2,
+        score: 88.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Felipe Gustavo",
+        placement: 3,
+        score: 83.66,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "X Games Shanghai 2019 – Men's Skateboarding - Street",
+    location: "Shanghai, China",
+    date: "2019-06-02",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 94.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Dashawn Jordan",
+        placement: 2,
+        score: 91.66,
+        country: "USA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 3,
+        score: 90.0,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "X Games Minneapolis 2019 – Men's Skateboarding - Street",
+    location: "Minneapolis, USA",
+    date: "2019-08-04",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 89.0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: 88.0,
+        country: "USA",
+      },
+      {
+        skater_name: "Sora Shirai",
+        placement: 3,
+        score: 87.0,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "X Games California 2021 – Men's Skateboarding - Street",
+    location: "California, USA",
+    date: "2021-07-23",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Shane O'Neill",
+        placement: 1,
+        score: 0,
+        country: "AUS",
+      },
+      {
+        skater_name: "Vincent Milou",
+        placement: 2,
+        score: 0,
+        country: "FRA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 3,
+        score: 0,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2024",
+    location: "Tampa, Florida, USA",
+    date: "2024-04-07",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Jake Ilardi",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2023",
+    location: "Tampa, Florida, USA",
+    date: "2023-03-05",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Yuto Horigome",
+        placement: 1,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Jake Ilardi",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2022",
+    location: "Tampa, Florida, USA",
+    date: "2022-05-06",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Jamie Foy",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Vincent Milou",
+        placement: 2,
+        score: 0,
+        country: "FRA",
+      },
+      {
+        skater_name: "Jake Ilardi",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2021",
+    location: "Tampa, Florida, USA",
+    date: "2021-04-25",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Shane O'Neill",
+        placement: 1,
+        score: 0,
+        country: "AUS",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 2,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2020",
+    location: "Tampa, Florida, USA",
+    date: "2020-03-01",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 2,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2019",
+    location: "Tampa, Florida, USA",
+    date: "2019-03-03",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Carlos Ribeiro",
+        placement: 1,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 2,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Jamie Foy",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2018",
+    location: "Tampa, Florida, USA",
+    date: "2018-03-04",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Jagger Eaton",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 2,
+        score: 0,
+        country: "JPN",
+      },
+      {
+        skater_name: "Carlos Ribeiro",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2017",
+    location: "Tampa, Florida, USA",
+    date: "2017-03-05",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Louie Lopez",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Carlos Ribeiro",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Yuto Horigome",
+        placement: 3,
+        score: 0,
+        country: "JPN",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2016",
+    location: "Tampa, Florida, USA",
+    date: "2016-03-06",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Shane O'Neill",
+        placement: 1,
+        score: 0,
+        country: "AUS",
+      },
+      {
+        skater_name: "Luan Oliveira",
+        placement: 2,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2015",
+    location: "Tampa, Florida, USA",
+    date: "2015-03-22",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Luan Oliveira",
+        placement: 1,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Kelvin Hoefler",
+        placement: 3,
+        score: 0,
+        country: "BRA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2014",
+    location: "Tampa, Florida, USA",
+    date: "2014-03-23",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Nyjah Huston",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Chaz Ortiz",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Alec Majerus",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2013",
+    location: "Tampa, Florida, USA",
+    date: "2013-03-24",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Luan Oliveira",
+        placement: 1,
+        score: 0,
+        country: "BRA",
+      },
+      {
+        skater_name: "Nyjah Huston",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Chaz Ortiz",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2012",
+    location: "Tampa, Florida, USA",
+    date: "2012-03-25",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Torey Pudwill",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Chaz Ortiz",
+        placement: 2,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Sean Malto",
+        placement: 3,
+        score: 0,
+        country: "USA",
+      },
+    ],
+  },
+  {
+    name: "Tampa Pro 2011",
+    location: "Tampa, Florida, USA",
+    date: "2011-03-13",
+    host: "Skatepark of Tampa",
+    results: [
+      {
+        skater_name: "Dennis Busenitz",
+        placement: 1,
+        score: 0,
+        country: "USA",
+      },
+      {
+        skater_name: "Shane O'Neill",
+        placement: 2,
+        score: 0,
+        country: "AUS",
+      },
+      {
+        skater_name: "Eric Koston",
+        placement: 3,
+        score: 0,
         country: "USA",
       },
     ],

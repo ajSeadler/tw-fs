@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 // src/components/EventsWithResults.tsx
 import React, { useEffect, useState } from "react";
 import { fetchEvents, type Event } from "../api/events";
@@ -8,7 +9,7 @@ import {
   unfavoriteEvent,
 } from "../api/favorites";
 import Leaderboard from "./Leaderboard";
-import { ThumbsUpIcon } from "lucide-react";
+import { Star } from "lucide-react";
 
 type Leader = {
   skater: string;
@@ -26,6 +27,7 @@ const EventsWithResults: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [slsCount, setSlsCount] = useState(0);
   const [xGamesCount, setXGamesCount] = useState(0);
+  const [tampaCount, setTampaCount] = useState(0);
   const [yearFilter, setYearFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
 
@@ -33,11 +35,14 @@ const EventsWithResults: React.FC = () => {
 
   useEffect(() => {
     async function loadAll() {
+      let evts: Event[] = [];
+      let map: Record<number, Result[]> = {};
+
+      // 1) Fetch events & results, compute leaders
       try {
-        const evts = await fetchEvents();
+        evts = await fetchEvents();
         setEvents(evts);
 
-        const map: Record<number, Result[]> = {};
         await Promise.all(
           evts.map(async (evt) => {
             map[evt.id] = await fetchResultsFor(evt.id);
@@ -58,23 +63,33 @@ const EventsWithResults: React.FC = () => {
             wins,
             eventsCount: count,
           }))
-          .sort((a, b) => b.wins - a.wins || a.eventsCount - b.eventsCount)
+          .sort((a, b) => b.wins - a.wins || b.eventsCount - a.eventsCount)
           .slice(0, 3);
         setLeaders(board);
+      } catch (err) {
+        console.error("Error fetching events/results:", err);
+      }
 
+      // 2) Compute SLS / X Games / Tampa counts regardless of any errors above
+      const slsEvents = evts.filter((e) =>
+        e.name.toLowerCase().includes("sls")
+      );
+      const xGamesEvents = evts.filter((e) =>
+        e.name.toLowerCase().includes("x games")
+      );
+      const tampaEvents = evts.filter((e) =>
+        e.name.toLowerCase().includes("tampa")
+      );
+      setSlsCount(slsEvents.length);
+      setXGamesCount(xGamesEvents.length);
+      setTampaCount(tampaEvents.length);
+
+      // 3) Fetch favorites in its own try/catch
+      try {
         const favIds = await fetchFavorites(token);
         setFavoritedEvents(new Set(favIds));
-
-        const slsEvents = evts.filter((e) =>
-          e.name.toLowerCase().includes("sls")
-        );
-        const xGamesEvents = evts.filter((e) =>
-          e.name.toLowerCase().includes("x games")
-        );
-        setSlsCount(slsEvents.length);
-        setXGamesCount(xGamesEvents.length);
       } catch (err) {
-        console.error("Error loading data:", err);
+        console.error("Failed to load favorites:", err);
       } finally {
         setLoading(false);
       }
@@ -112,7 +127,9 @@ const EventsWithResults: React.FC = () => {
     const matchesType =
       typeFilter === "all" ||
       (typeFilter === "sls" && event.name.toLowerCase().includes("sls")) ||
-      (typeFilter === "xgames" && event.name.toLowerCase().includes("x games"));
+      (typeFilter === "xgames" &&
+        event.name.toLowerCase().includes("x games")) ||
+      (typeFilter === "tampa" && event.name.toLowerCase().includes("tampa"));
     return matchesYear && matchesType;
   });
 
@@ -134,41 +151,33 @@ const EventsWithResults: React.FC = () => {
           <img src="/images/xgames.png" alt="X Games" className="h-6" />
           <span className="text-white font-medium">{xGamesCount}</span>
         </div>
+        <div className="flex items-center space-x-2 bg-neutral-900 px-4 py-2 rounded-xl shadow-sm">
+          <img src="/images/tampa.png" alt="Tampa" className="h-6" />
+          <span className="text-white font-medium">{tampaCount}</span>
+        </div>
       </div>
 
       {/* Filters */}
       <div className="max-w-4xl mx-auto mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex gap-2">
-          <button
-            onClick={() => setTypeFilter("all")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "all"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setTypeFilter("sls")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "sls"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            SLS
-          </button>
-          <button
-            onClick={() => setTypeFilter("xgames")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "xgames"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            X Games
-          </button>
+          {[
+            { label: "All", value: "all" },
+            { label: "SLS", value: "sls" },
+            { label: "X Games", value: "xgames" },
+            { label: "Tampa", value: "tampa" },
+          ].map(({ label, value }) => (
+            <button
+              key={value}
+              onClick={() => setTypeFilter(value)}
+              className={`px-4 py-2 rounded-md text-sm font-medium ${
+                typeFilter === value
+                  ? "bg-primary text-white"
+                  : "bg-neutral-800 text-gray-400"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
         <select
           value={yearFilter}
@@ -188,23 +197,31 @@ const EventsWithResults: React.FC = () => {
       <div className="max-w-4xl mx-auto space-y-8 mt-8">
         {filteredEvents.map((event) => {
           const isFav = favoritedEvents.has(event.id);
+          const lower = event.name.toLowerCase();
 
           return (
             <div key={event.id} className="bg-neutral-900 rounded-2xl p-6">
               <div className="flex justify-between items-center mb-4">
                 <div>
                   <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
-                    {event.name.toLowerCase().includes("sls") && (
+                    {lower.includes("sls") && (
                       <img
                         src="/images/sls-white.png"
                         alt="SLS"
                         className="h-10"
                       />
                     )}
-                    {event.name.toLowerCase().includes("x games") && (
+                    {lower.includes("x games") && (
                       <img
                         src="/images/xgames.png"
                         alt="X Games"
+                        className="h-10"
+                      />
+                    )}
+                    {lower.includes("tampa") && (
+                      <img
+                        src="/images/tampa.png"
+                        alt="Tampa"
                         className="h-10"
                       />
                     )}
@@ -224,7 +241,7 @@ const EventsWithResults: React.FC = () => {
                   }`}
                   aria-label={isFav ? "Unfavorite event" : "Favorite event"}
                 >
-                  <ThumbsUpIcon className="w-5 h-5" />
+                  <Star className="w-5 h-5" />
                 </button>
               </div>
 

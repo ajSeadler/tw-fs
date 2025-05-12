@@ -47,7 +47,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profileOpen, setProfileOpen }) => {
         className="flex items-center space-x-1 p-1 rounded-md hover:bg-neutral-800 transition"
         aria-label="User menu"
       >
-        <Avatar className="flex items-center justify-center bg-neutral-800 p-4 border border-gray-300 rounded-full">
+        <Avatar className="flex items-center justify-center bg-neutral-800  border border-gray-300 rounded-full">
           {user?.profile_picture ? (
             <AvatarImage
               src={user.profile_picture}

@@ -66,7 +66,7 @@ const TopPerformerStats: React.FC = () => {
         Top Performer
       </h3>
       <p className="text-xs text-gray-500 max-w-xs">
-        Across all your favorite events
+        Across all your liked events
       </p>
 
       <div className="relative w-full flex justify-center py-3">

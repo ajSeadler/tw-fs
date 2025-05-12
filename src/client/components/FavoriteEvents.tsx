@@ -1,9 +1,8 @@
-// src/components/FavoriteEvents.tsx
 import React, { useEffect, useState } from "react";
 import { fetchEvents, type Event } from "../api/events";
 import { fetchFavorites, unfavoriteEvent } from "../api/favorites";
 import { fetchResultsFor, type Result } from "../api/results";
-import { ThumbsUpIcon } from "lucide-react";
+import { Star } from "lucide-react";
 
 const FavoriteEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -11,9 +10,9 @@ const FavoriteEvents: React.FC = () => {
   const [resultsMap, setResultsMap] = useState<Record<number, Result[]>>({});
   const [loading, setLoading] = useState(true);
   const [yearFilter, setYearFilter] = useState("All");
-  const [typeFilter, setTypeFilter] = useState<"All" | "SLS" | "X Games">(
-    "All"
-  );
+  const [typeFilter, setTypeFilter] = useState<
+    "All" | "SLS" | "X Games" | "Tampa"
+  >("All");
 
   const token = localStorage.getItem("token")!;
 
@@ -78,7 +77,8 @@ const FavoriteEvents: React.FC = () => {
       typeFilter === "All" ||
       (typeFilter === "SLS" && event.name.toLowerCase().includes("sls")) ||
       (typeFilter === "X Games" &&
-        event.name.toLowerCase().includes("x games"));
+        event.name.toLowerCase().includes("x games")) ||
+      (typeFilter === "Tampa" && event.name.toLowerCase().includes("tampa"));
     return matchesYear && matchesType;
   });
 
@@ -123,6 +123,16 @@ const FavoriteEvents: React.FC = () => {
           >
             X Games
           </button>
+          <button
+            onClick={() => setTypeFilter("Tampa")}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${
+              typeFilter === "Tampa"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            Tampa
+          </button>
         </div>
         <select
           value={yearFilter}
@@ -166,8 +176,16 @@ const FavoriteEvents: React.FC = () => {
                         className="h-10"
                       />
                     )}
+                    {event.name.toLowerCase().includes("tampa") && (
+                      <img
+                        src="/images/tampa.png"
+                        alt="Tampa Pro"
+                        className="h-10"
+                      />
+                    )}
                     {event.name}
                   </h2>
+
                   <p className="text-sm text-gray-500">
                     {event.location} ·{" "}
                     {new Date(event.date).toLocaleDateString()} · {event.host}
@@ -177,7 +195,7 @@ const FavoriteEvents: React.FC = () => {
                   onClick={() => handleUnfavorite(event.id)}
                   className="p-2.5 rounded-md text-green-500 shadow-md hover:shadow-none transition"
                 >
-                  <ThumbsUpIcon className="w-5 h-5" />
+                  <Star className="w-5 h-5" />
                 </button>
               </div>
 

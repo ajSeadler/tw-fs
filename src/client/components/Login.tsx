@@ -27,7 +27,7 @@ const Login: FC = () => {
   };
 
   return (
-    <div className="my-20 mb-auto flex flex-col w-[350px] max-w-[450px] mx-auto">
+    <div className="my-20 flex flex-col w-100 mx-auto">
       <p className="text-[32px] font-bold text-white text-left">
         Welcome Back!
       </p>
@@ -79,7 +79,7 @@ const Login: FC = () => {
 
           <button
             type="submit"
-            className="whitespace-nowrap bg-white text-zinc-950 hover:bg-white/90 active:bg-white/80 flex w-full mt-6 items-center justify-center rounded-lg px-4 py-4 text-base font-medium"
+            className="w-full rounded-lg bg-neutral-800 py-2 text-white font-medium hover:bg-gray-500 transition"
           >
             Sign in
           </button>

@@ -16,7 +16,7 @@ type User = {
 export const useUserProfile = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false); // To toggle between viewing and editing
   const [formData, setFormData] = useState<User | null>(null); // For the edit form
 
@@ -82,6 +82,7 @@ export const useUserProfile = () => {
       }
 
       setUser(formData); // Update the displayed profile with new data
+      setIsEditing(false); // Exit edit mode after successful save
     } catch (err: any) {
       setError(err.message || "Failed to update profile");
     }

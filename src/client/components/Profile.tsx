@@ -4,6 +4,7 @@ import FavoriteEvents from "./FavoriteEvents";
 import FavoriteEventTypes from "./FavoriteEventTypes";
 import LastFavoritedEvent from "./LastFavoritedEvent";
 import TopPerformerStats from "./TopPerformerStats";
+import { FavoriteCount } from "./FavoriteCount";
 
 export const Profile = () => {
   const {
@@ -24,11 +25,11 @@ export const Profile = () => {
   return (
     <div className="min-h-screen bg-black px-4 py-12 flex flex-col items-center">
       {/* Profile Card */}
-      <div className="relative w-auto max-w-auto  rounded-2xl shadow-xl p-8">
+      <div className="relative w-auto max-w-auto rounded-2xl shadow-xl p-8">
         {/* Settings Icon */}
         <button
           onClick={handleEditClick}
-          className="absolute top-4 right-4 text-gray-300 hover:text-white"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white"
         >
           <Settings size={24} />
         </button>
@@ -38,7 +39,7 @@ export const Profile = () => {
             <img
               src={user.profile_picture}
               alt="Profile"
-              className="w-20 h-20 rounded-full border border-neutral-700 object-cover"
+              className="w-30 h-30 rounded-full border border-neutral-700 object-cover"
             />
           ) : (
             <div className="w-20 h-20 rounded-full bg-neutral-700 flex items-center justify-center text-white text-xl font-semibold">
@@ -53,16 +54,10 @@ export const Profile = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center space-x-8 mb-8">
-          <div className="">
-            <FavoriteEventTypes />
-          </div>
-          <div className="">
-            <LastFavoritedEvent />
-          </div>
-          <div className="">
-            <TopPerformerStats />
-          </div>
+        <div className="flex justify-center items-center space-x-8 mb-4">
+          <FavoriteEventTypes />
+          <LastFavoritedEvent />
+          <TopPerformerStats />
         </div>
 
         {isEditing ? (
@@ -74,7 +69,7 @@ export const Profile = () => {
                   name="username"
                   value={formData?.username || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -85,7 +80,7 @@ export const Profile = () => {
                   name="first_name"
                   value={formData?.first_name || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -94,7 +89,7 @@ export const Profile = () => {
                   name="last_name"
                   value={formData?.last_name || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -102,8 +97,9 @@ export const Profile = () => {
                 <input
                   name="email"
                   value={formData?.email || ""}
+                  disabled
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-gray-400 placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -112,7 +108,7 @@ export const Profile = () => {
                   name="location"
                   value={formData?.location || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -121,7 +117,7 @@ export const Profile = () => {
                   name="bio"
                   value={formData?.bio || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
               <div>
@@ -132,7 +128,7 @@ export const Profile = () => {
                   name="profile_picture"
                   value={formData?.profile_picture || ""}
                   onChange={handleInputChange}
-                  className="mt-1 w-full bg-neutral-700 text-white p-2 rounded-md border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="mt-1 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder-zinc-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -168,6 +164,7 @@ export const Profile = () => {
           </div>
         )}
       </div>
+      <FavoriteCount />
 
       {/* Favorite Events Positioned Below */}
       <div className="w-full max-w-4xl mt-12">

@@ -2,9 +2,9 @@ import type { FC } from "react";
 
 const TermsAndConditions: FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-6 py-12">
-      <div className="w-full max-w-4xl bg-white shadow-lg border border-gray-300 rounded-lg p-10">
-        <h1 className="text-4xl font-serif text-black text-center leading-tight mb-6">
+    <div className="flex flex-col items-center justify-center min-h-screen  px-6 py-12">
+      <div className="w-full max-w-4xl bg-white shadow-lg border border-gray-300  p-10">
+        <h1 className="text-4xl text-black text-center leading-tight mb-6">
           Terms and Conditions
         </h1>
         <p className="text-center text-gray-600 text-lg mb-8">
@@ -14,9 +14,7 @@ const TermsAndConditions: FC = () => {
 
         <div className="space-y-10">
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
-              1. Introduction
-            </h2>
+            <h2 className="text-2xl text-black mb-4">1. Introduction</h2>
             <p className="text-gray-700 leading-relaxed">
               These Terms and Conditions govern your use of our platform and
               services. By accessing or using our website, you agree to be bound
@@ -26,7 +24,7 @@ const TermsAndConditions: FC = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
+            <h2 className="text-2xl text-black mb-4">
               2. User Responsibilities
             </h2>
             <p className="text-gray-700 leading-relaxed">
@@ -38,7 +36,7 @@ const TermsAndConditions: FC = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
+            <h2 className="text-2xl text-black mb-4">
               3. Privacy and Data Protection
             </h2>
             <p className="text-gray-700 leading-relaxed">
@@ -50,9 +48,7 @@ const TermsAndConditions: FC = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
-              4. Account Security
-            </h2>
+            <h2 className="text-2xl text-black mb-4">4. Account Security</h2>
             <p className="text-gray-700 leading-relaxed">
               You are responsible for maintaining the confidentiality of your
               account details, including your username, password, and any other
@@ -62,9 +58,7 @@ const TermsAndConditions: FC = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
-              5. Termination
-            </h2>
+            <h2 className="text-2xl text-black mb-4">5. Termination</h2>
             <p className="text-gray-700 leading-relaxed">
               We may suspend or terminate your access to the service at our
               discretion if you violate these Terms and Conditions or if we
@@ -74,7 +68,7 @@ const TermsAndConditions: FC = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
+            <h2 className="text-2xl text-black mb-4">
               6. Limitation of Liability
             </h2>
             <p className="text-gray-700 leading-relaxed">
@@ -86,9 +80,7 @@ const TermsAndConditions: FC = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif text-black mb-4">
-              7. Modifications
-            </h2>
+            <h2 className="text-2xl text-black mb-4">7. Modifications</h2>
             <p className="text-gray-700 leading-relaxed">
               We reserve the right to modify or update these Terms and
               Conditions at any time. Changes will be posted on this page, and

@@ -10,6 +10,8 @@ import {
 } from "../api/favorites";
 import Leaderboard from "./Leaderboard";
 import { Star } from "lucide-react";
+import handrailIcon from "/images/handrail.png";
+import vertIcon from "/images/vert.png";
 
 type Leader = {
   skater: string;
@@ -31,6 +33,11 @@ const EventsWithResults: React.FC = () => {
   const [yearFilter, setYearFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
 
+  // ← New:
+  const [categoryFilter, setCategoryFilter] = useState<
+    "all" | "street" | "vert"
+  >("all");
+
   const token = localStorage.getItem("token")!;
 
   useEffect(() => {
@@ -38,7 +45,6 @@ const EventsWithResults: React.FC = () => {
       let evts: Event[] = [];
       let map: Record<number, Result[]> = {};
 
-      // 1) Fetch events & results, compute leaders
       try {
         evts = await fetchEvents();
         setEvents(evts);
@@ -63,14 +69,14 @@ const EventsWithResults: React.FC = () => {
             wins,
             eventsCount: count,
           }))
-          .sort((a, b) => b.wins - a.wins || b.eventsCount - a.eventsCount)
+          .sort((a, b) => b.wins - a.wins || a.eventsCount - b.eventsCount)
           .slice(0, 3);
         setLeaders(board);
       } catch (err) {
         console.error("Error fetching events/results:", err);
       }
 
-      // 2) Compute SLS / X Games / Tampa counts regardless of any errors above
+      // Compute counts
       const slsEvents = evts.filter((e) =>
         e.name.toLowerCase().includes("sls")
       );
@@ -84,7 +90,6 @@ const EventsWithResults: React.FC = () => {
       setXGamesCount(xGamesEvents.length);
       setTampaCount(tampaEvents.length);
 
-      // 3) Fetch favorites in its own try/catch
       try {
         const favIds = await fetchFavorites(token);
         setFavoritedEvents(new Set(favIds));
@@ -120,7 +125,8 @@ const EventsWithResults: React.FC = () => {
     setFavoritedEvents(newSet);
   };
 
-  const filteredEvents = events.filter((event) => {
+  // 4) apply year/type → then category
+  const baseFiltered = events.filter((event) => {
     const matchesYear =
       yearFilter === "all" ||
       new Date(event.date).getFullYear().toString() === yearFilter;
@@ -133,6 +139,15 @@ const EventsWithResults: React.FC = () => {
     return matchesYear && matchesType;
   });
 
+  const filteredEvents = baseFiltered.filter((event) => {
+    const name = event.name.toLowerCase();
+    if (categoryFilter === "street")
+      return name.includes("street") || name.includes("sls");
+
+    if (categoryFilter === "vert") return name.includes("vert");
+    return true;
+  });
+
   const uniqueYears = Array.from(
     new Set(events.map((e) => new Date(e.date).getFullYear().toString()))
   ).sort((a, b) => parseInt(b) - parseInt(a));
@@ -140,45 +155,89 @@ const EventsWithResults: React.FC = () => {
   return (
     <div className="bg-black min-h-screen p-6">
       <Leaderboard leaders={leaders} loading={loading} />
-
-      {/* Summary icons */}
-      <div className="flex justify-center gap-6 mt-6">
-        <div className="flex items-center space-x-2 bg-neutral-900 px-4 py-2 rounded-xl shadow-sm">
-          <img src="/images/sls-white.png" alt="SLS" className="h-6" />
-          <span className="text-white font-medium">{slsCount}</span>
-        </div>
-        <div className="flex items-center space-x-2 bg-neutral-900 px-4 py-2 rounded-xl shadow-sm">
-          <img src="/images/xgames.png" alt="X Games" className="h-6" />
-          <span className="text-white font-medium">{xGamesCount}</span>
-        </div>
-        <div className="flex items-center space-x-2 bg-neutral-900 px-4 py-2 rounded-xl shadow-sm">
-          <img src="/images/tampa.png" alt="Tampa" className="h-6" />
-          <span className="text-white font-medium">{tampaCount}</span>
-        </div>
-      </div>
+      {/* 2) Street/Vert toggle */}
 
       {/* Filters */}
-      <div className="max-w-4xl mx-auto mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="max-w-4xl mx-auto mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex gap-2">
+          {/* All */}
+          <button
+            onClick={() => setTypeFilter("all")}
+            className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${
+              typeFilter === "all"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            All
+          </button>
+
+          {/* SLS */}
+          <button
+            onClick={() => setTypeFilter("sls")}
+            className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${
+              typeFilter === "sls"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            <img src="/images/sls-white.png" alt="SLS" className="h-5" />
+            <span>SLS ({slsCount})</span>
+          </button>
+
+          {/* X Games */}
+          <button
+            onClick={() => setTypeFilter("xgames")}
+            className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${
+              typeFilter === "xgames"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            <img src="/images/xgames.png" alt="X Games" className="h-5" />
+            <span>X Games ({xGamesCount})</span>
+          </button>
+
+          {/* Tampa */}
+          <button
+            onClick={() => setTypeFilter("tampa")}
+            className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${
+              typeFilter === "tampa"
+                ? "bg-primary text-white"
+                : "bg-neutral-800 text-gray-400"
+            }`}
+          >
+            <img src="/images/tampa.png" alt="Tampa" className="h-5" />
+            <span>Tampa ({tampaCount})</span>
+          </button>
+        </div>
+        {/* Category Filter (slim buttons like your type filters) */}
+        <div className="flex justify-center space-x-2">
           {[
             { label: "All", value: "all" },
-            { label: "SLS", value: "sls" },
-            { label: "X Games", value: "xgames" },
-            { label: "Tampa", value: "tampa" },
-          ].map(({ label, value }) => (
+            { label: "Street", value: "street", icon: handrailIcon },
+            { label: "Vert", value: "vert", icon: vertIcon },
+          ].map(({ label, value, icon }) => (
             <button
               key={value}
-              onClick={() => setTypeFilter(value)}
-              className={`px-4 py-2 rounded-md text-sm font-medium ${
-                typeFilter === value
+              type="button"
+              role="radio"
+              aria-checked={categoryFilter === value}
+              onClick={() =>
+                setCategoryFilter(value as "all" | "street" | "vert")
+              }
+              className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${
+                categoryFilter === value
                   ? "bg-primary text-white"
-                  : "bg-neutral-800 text-gray-400"
+                  : "bg-neutral-800 text-gray-400 hover:text-white hover:bg-neutral-700"
               }`}
             >
+              {icon && <img src={icon} alt={label} className="h-5 w-5" />}
               {label}
             </button>
           ))}
         </div>
+
         <select
           value={yearFilter}
           onChange={(e) => setYearFilter(e.target.value)}
@@ -227,9 +286,19 @@ const EventsWithResults: React.FC = () => {
                     )}
                     {event.name}
                   </h2>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 flex items-center gap-2">
                     {event.location} ·{" "}
-                    {new Date(event.date).toLocaleDateString()} · {event.host}
+                    {new Date(event.date).toLocaleDateString()} · {event.host}{" "}
+                    {(lower.includes("street") || lower.includes("sls")) && (
+                      <img
+                        src="/images/handrail.png"
+                        alt="Street"
+                        className="h-5"
+                      />
+                    )}
+                    {lower.includes("vert") && (
+                      <img src="/images/vert.png" alt="Vert" className="h-5" />
+                    )}
                   </p>
                 </div>
                 <button

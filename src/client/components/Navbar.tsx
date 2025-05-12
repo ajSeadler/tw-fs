@@ -58,15 +58,22 @@ const Navbar: FC = () => {
           <div className="flex h-16 items-center justify-between">
             {/* Left: Logo + Links */}
             <div className="flex items-center space-x-6">
-              <a
-                href="/"
-                className="flex items-center text-gray-100 hover:text-white transition"
-              >
-                <span className="ml-2 text-xl font-semibold tracking-wide">
-                  Home
-                </span>
-              </a>
               <div className="hidden md:flex space-x-4">
+                <a
+                  href="/"
+                  className={`relative group text-gray-300 hover:text-white px-2 py-1 text-sm font-medium focus:outline-none ${
+                    location.pathname === "/events" ? "text-white" : ""
+                  }`}
+                >
+                  Home
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 block h-0.5 bg-white transition-all duration-300 ${
+                      location.pathname === "/"
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </a>
                 <a
                   href="/events"
                   className={`relative group text-gray-300 hover:text-white px-2 py-1 text-sm font-medium focus:outline-none ${

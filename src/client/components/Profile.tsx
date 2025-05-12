@@ -56,7 +56,7 @@ export const Profile = () => {
 
         <div className="flex justify-center items-center space-x-8 mb-4">
           <FavoriteEventTypes />
-          <LastFavoritedEvent />
+          <FavoriteCount />
           <TopPerformerStats />
         </div>
 
@@ -164,7 +164,6 @@ export const Profile = () => {
           </div>
         )}
       </div>
-      <FavoriteCount />
 
       {/* Favorite Events Positioned Below */}
       <div className="w-full max-w-4xl mt-12">

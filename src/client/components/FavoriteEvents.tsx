@@ -1,3 +1,4 @@
+// src/components/FavoriteEvents.tsx
 import React, { useEffect, useState } from "react";
 import { fetchEvents, type Event } from "../api/events";
 import { fetchFavorites, unfavoriteEvent } from "../api/favorites";
@@ -9,7 +10,7 @@ const FavoriteEvents: React.FC = () => {
   const [favoriteIds, setFavoriteIds] = useState<Set<number>>(new Set());
   const [resultsMap, setResultsMap] = useState<Record<number, Result[]>>({});
   const [loading, setLoading] = useState(true);
-  const [yearFilter, setYearFilter] = useState("All");
+  const [yearFilter, setYearFilter] = useState<string>("All");
   const [typeFilter, setTypeFilter] = useState<
     "All" | "SLS" | "X Games" | "Tampa"
   >("All");
@@ -39,9 +40,7 @@ const FavoriteEvents: React.FC = () => {
           })
         );
 
-        const resultsObj: Record<number, Result[]> =
-          Object.fromEntries(resultsEntries);
-        setResultsMap(resultsObj);
+        setResultsMap(Object.fromEntries(resultsEntries));
       } catch (err) {
         console.error("Error loading favorites:", err);
       } finally {
@@ -91,48 +90,22 @@ const FavoriteEvents: React.FC = () => {
 
   return (
     <div className="p-6">
+      {/* Filters */}
       <div className="max-w-4xl mx-auto mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex gap-2">
-          <button
-            onClick={() => setTypeFilter("All")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "All"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setTypeFilter("SLS")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "SLS"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            SLS
-          </button>
-          <button
-            onClick={() => setTypeFilter("X Games")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "X Games"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            X Games
-          </button>
-          <button
-            onClick={() => setTypeFilter("Tampa")}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${
-              typeFilter === "Tampa"
-                ? "bg-primary text-white"
-                : "bg-neutral-800 text-gray-400"
-            }`}
-          >
-            Tampa
-          </button>
+          {(["All", "SLS", "X Games", "Tampa"] as const).map((value) => (
+            <button
+              key={value}
+              onClick={() => setTypeFilter(value)}
+              className={`px-4 py-2 rounded-md text-sm font-medium ${
+                typeFilter === value
+                  ? "bg-primary text-white"
+                  : "bg-neutral-800 text-gray-400"
+              }`}
+            >
+              {value}
+            </button>
+          ))}
         </div>
         <select
           value={yearFilter}
@@ -154,86 +127,105 @@ const FavoriteEvents: React.FC = () => {
         </p>
       ) : (
         <div className="space-y-10">
-          {filteredEvents.map((event) => (
-            <div
-              key={event.id}
-              className="bg-neutral-900 rounded-2xl p-6 shadow-lg"
-            >
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
-                    {event.name.toLowerCase().includes("sls") && (
-                      <img
-                        src="/images/sls-white.png"
-                        alt="SLS"
-                        className="h-10"
-                      />
-                    )}
-                    {event.name.toLowerCase().includes("x games") && (
-                      <img
-                        src="/images/xgames.png"
-                        alt="X Games"
-                        className="h-10"
-                      />
-                    )}
-                    {event.name.toLowerCase().includes("tampa") && (
-                      <img
-                        src="/images/tampa.png"
-                        alt="Tampa Pro"
-                        className="h-10"
-                      />
-                    )}
-                    {event.name}
-                  </h2>
+          {filteredEvents.map((event) => {
+            const lower = event.name.toLowerCase();
+            return (
+              <div
+                key={event.id}
+                className="bg-neutral-900 rounded-2xl p-6 shadow-lg"
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
+                      {lower.includes("sls") && (
+                        <img
+                          src="/images/sls-white.png"
+                          alt="SLS"
+                          className="h-10"
+                        />
+                      )}
+                      {lower.includes("x games") && (
+                        <img
+                          src="/images/xgames.png"
+                          alt="X Games"
+                          className="h-10"
+                        />
+                      )}
+                      {lower.includes("tampa") && (
+                        <img
+                          src="/images/tampa.png"
+                          alt="Tampa"
+                          className="h-10"
+                        />
+                      )}
+                      {event.name}
+                    </h2>
+                    <p className="text-sm text-gray-500 flex items-center gap-2">
+                      {event.location} ·{" "}
+                      {new Date(event.date).toLocaleDateString()} · {event.host}{" "}
+                      {lower.includes("street") && (
+                        <img
+                          src="/images/handrail.png"
+                          alt="Street"
+                          className="h-5"
+                        />
+                      )}
+                      {lower.includes("vert") && (
+                        <img
+                          src="/images/vert.png"
+                          alt="Vert"
+                          className="h-5"
+                        />
+                      )}
+                    </p>
+                  </div>
 
-                  <p className="text-sm text-gray-500">
-                    {event.location} ·{" "}
-                    {new Date(event.date).toLocaleDateString()} · {event.host}
-                  </p>
+                  <button
+                    onClick={() => handleUnfavorite(event.id)}
+                    className="p-2.5 rounded-md text-green-500 shadow-md hover:shadow-none transition"
+                  >
+                    <Star className="w-5 h-5" />
+                  </button>
                 </div>
-                <button
-                  onClick={() => handleUnfavorite(event.id)}
-                  className="p-2.5 rounded-md text-green-500 shadow-md hover:shadow-none transition"
-                >
-                  <Star className="w-5 h-5" />
-                </button>
-              </div>
 
-              <div className="overflow-x-auto">
-                <table className="min-w-full text-left text-sm">
-                  <thead className="bg-neutral-800">
-                    <tr>
-                      <th className="py-2 px-4 text-white">#</th>
-                      <th className="py-2 px-4 text-white">Skater</th>
-                      <th className="py-2 px-4 text-white">Country</th>
-                      <th className="py-2 px-4 text-white">Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(resultsMap[event.id] || []).map((r) => (
-                      <tr
-                        key={r.id}
-                        className="border-b border-neutral-700 hover:bg-gray-700 transition"
-                      >
-                        <td className="py-2 px-4 font-medium text-white">
-                          {r.placement}
-                        </td>
-                        <td className="py-2 px-4 text-white">
-                          {r.skater_name}
-                        </td>
-                        <td className="py-2 px-4 text-gray-500">{r.country}</td>
-                        <td className="py-2 px-4 text-white">
-                          {r.score !== null
-                            ? Number(r.score).toFixed(2)
-                            : "N/A"}
-                        </td>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-left text-sm">
+                    <thead className="bg-neutral-800">
+                      <tr>
+                        <th className="py-2 px-4 text-white">#</th>
+                        <th className="py-2 px-4 text-white">Skater</th>
+                        <th className="py-2 px-4 text-white">Country</th>
+                        <th className="py-2 px-4 text-white">Score</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {(resultsMap[event.id] || []).map((r) => (
+                        <tr
+                          key={r.id}
+                          className="border-b border-neutral-700 hover:bg-gray-700 transition"
+                        >
+                          <td className="py-2 px-4 font-medium text-white">
+                            {r.placement}
+                          </td>
+                          <td className="py-2 px-4 text-white">
+                            {r.skater_name}
+                          </td>
+                          <td className="py-2 px-4 text-gray-500">
+                            {r.country}
+                          </td>
+                          <td className="py-2 px-4 text-white">
+                            {r.score !== null
+                              ? Number(r.score).toFixed(2)
+                              : "N/A"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

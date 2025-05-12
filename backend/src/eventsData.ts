@@ -401,6 +401,32 @@ export const eventsData: Event[] = [
     ],
   },
   {
+    name: "X Games Chiba 2024 – Men's Skateboarding - Vert",
+    location: "Chiba, Japan",
+    date: "2023-07-23",
+    host: "X Games",
+    results: [
+      {
+        skater_name: "Gui Khury",
+        placement: 1,
+        score: 93.33,
+        country: "tbd",
+      },
+      {
+        skater_name: "Soya Inomata",
+        placement: 2,
+        score: 90.0,
+        country: "tbd",
+      },
+      {
+        skater_name: "Tom Schaar",
+        placement: 3,
+        score: 89.0,
+        country: "CAN",
+      },
+    ],
+  },
+  {
     name: "X Games Summer 2022 – Men's Skateboarding - Street",
     location: "Ventura, CA, USA",
     date: "2022-07-20",

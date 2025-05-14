@@ -50,7 +50,7 @@ const Navbar: FC = () => {
   return (
     <>
       <nav
-        className={`backdrop-blur-sm border-b border-neutral-700 sticky top-0 z-50 transition-all duration-300 ${
+        className={`bg-white/10 backdrop-blur-xs border-b border-neutral-700 sticky top-0 z-50 transition-all duration-300 ${
           showNavbar ? "transform translate-y-0" : "-translate-y-full"
         }`}
       >

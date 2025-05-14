@@ -1,2 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
+@layer utilities {
+  .neon-top-left {
+    background: radial-gradient(at top left, #5465FF, transparent 100%);
+  }
+
+  .neon-bottom-right {
+    background: radial-gradient(at bottom right, #0D1B1E, transparent 100%);
+  }
+}

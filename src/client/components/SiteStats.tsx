@@ -13,10 +13,24 @@ const SiteStats: FC = () => (
     {stats.map(({ number, label, icon: Icon }, idx) => (
       <div
         key={idx}
-        className="group flex flex-col items-center text-center space-y-4 px-6 py-8 rounded-2xl  transition-transform duration-500 hover:scale-105"
+        className="group flex flex-col items-center text-center space-y-4 px-6 py-8 rounded-2xl transition-transform duration-500 hover:scale-105"
       >
-        <div className="p-3 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
-          <Icon className="w-6 h-6 text-white" />
+        <div
+          className="
+            p-3 rounded-full
+            bg-white/20
+            transition-colors duration-300
+            group-hover:bg-neutral-800
+          "
+        >
+          <Icon
+            className="
+              w-6 h-6
+              text-white
+              transition-colors duration-300
+              group-hover:text-violet-500
+            "
+          />
         </div>
         <h3 className="text-4xl font-extrabold text-white tracking-tight">
           {number}

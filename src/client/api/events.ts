@@ -7,6 +7,7 @@ export interface Event {
   location: string;
   date: string; // ISO string
   host: string;
+  results: Result[]; // Add this line to include the results
 }
 
 export interface Result {
@@ -29,7 +30,7 @@ export async function fetchEvents(): Promise<Event[]> {
  * Fetch the N most recent events.
  * Falls back to sorting client-side if the server doesn’t support `?limit=`.
  */
-export async function fetchRecentEvents(limit = 3): Promise<Event[]> {
+export async function fetchRecentEvents(limit = 6): Promise<Event[]> {
   // If your API supports `?limit=3&sort=date_desc`, you could do:
   // const res = await fetch(`${BASE_URL}/events?limit=${limit}&sort=date_desc`);
   // if (!res.ok) throw new Error(`Recent events fetch failed: ${res.status}`);
@@ -46,5 +47,13 @@ export async function fetchRecentEvents(limit = 3): Promise<Event[]> {
 export async function fetchResultsFor(eventId: number): Promise<Result[]> {
   const res = await fetch(`${BASE_URL}/results/${eventId}`);
   if (!res.ok) throw new Error(`Results fetch failed for event ${eventId}`);
+  return res.json();
+}
+
+export async function fetchEventWithResults(
+  id: number
+): Promise<Event & { results: Result[] }> {
+  const res = await fetch(`${BASE_URL}/events/${id}`); // This is correct
+  if (!res.ok) throw new Error(`Failed to fetch event ${id}: ${res.status}`);
   return res.json();
 }

@@ -46,35 +46,40 @@ const Leaderboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 100);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setLoading(false), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
-    return <div className="text-center text-gray-500 py-10">Loading…</div>;
+    return <div className="text-center text-gray-400 py-12">Loading…</div>;
   }
 
   return (
-    <section className="max-w-5xl mx-auto mb-16 px-4">
+    <section className="max-w-5xl mx-auto px-4 mb-20">
       <h1 className="text-white text-2xl font-bold mb-8 flex items-center gap-2">
         Current Highlights
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {staticLeaders.map((leader) => {
           const icon = iconMap.find((i) => i.category === leader.category);
+
           return (
             <div
               key={leader.category}
               className="bg-white/10 border border-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-primary-500/40 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-between mb-4">
-                {icon && (
+                {icon ? (
                   <img
                     src={icon.src}
                     alt={icon.alt}
-                    className="w-18 h-18 object-contain"
+                    className="w-16 h-16 object-contain"
                     loading="lazy"
                   />
+                ) : (
+                  <div className="w-16 h-16 flex items-center justify-center bg-neutral-800 text-white text-sm rounded">
+                    No Image
+                  </div>
                 )}
               </div>
               <p className="text-xs uppercase text-neutral-400 mb-1">

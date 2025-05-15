@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 // src/components/EventsWithResults.tsx
 import React, { useEffect, useState } from "react";
@@ -15,20 +16,12 @@ import vertIcon from "/images/vert.png";
 import FeaturedEvents from "./FeaturedEvents";
 import TopPerformers from "./TopPerformers";
 
-type Leader = {
-  skater: string;
-  wins: number;
-  eventsCount: number;
-};
-
 const EventsWithResults: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [resultsMap, setResultsMap] = useState<Record<number, Result[]>>({});
-  const [leaders, setLeaders] = useState<Leader[]>([]);
   const [favoritedEvents, setFavoritedEvents] = useState<Set<number>>(
     new Set()
   );
-  const [loading, setLoading] = useState(true);
   const [slsCount, setSlsCount] = useState(0);
   const [xGamesCount, setXGamesCount] = useState(0);
   const [tampaCount, setTampaCount] = useState(0);
@@ -157,7 +150,7 @@ const EventsWithResults: React.FC = () => {
   return (
     <>
       <div className=" min-h-screen p-6">
-        <Leaderboard leaders={leaders} loading={loading} />
+        <Leaderboard />
 
         <FeaturedEvents />
         <TopPerformers />
@@ -372,3 +365,13 @@ const EventsWithResults: React.FC = () => {
 };
 
 export default EventsWithResults;
+
+function setLeaders(
+  board: { skater: string; wins: number; eventsCount: number }[]
+) {
+  throw new Error("Function not implemented.");
+}
+
+function setLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}

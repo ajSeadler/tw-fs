@@ -113,7 +113,7 @@ const TopPerformers: FC = () => {
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-12 space-y-6 text-white">
-      <h2 className="text-3xl font-extrabold">Top Performers by Series</h2>
+      <h2 className="text-2xl font-bold">Top Performers by Series</h2>
       {/* …inside your grid… */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {winners.map(
@@ -128,7 +128,7 @@ const TopPerformers: FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
-                <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-md p-6 shadow-inner shadow-black/20 border border-transparent hover:border-white/20 transition-all duration-300">
+                <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xs p-6 shadow-inner shadow-black/20 border border-transparent hover:border-white/20 transition-all duration-300">
                   {/* top accent bar */}
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent" />
 

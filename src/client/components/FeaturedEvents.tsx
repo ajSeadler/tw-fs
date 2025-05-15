@@ -33,7 +33,7 @@ export const FeaturedEvents: FC = () => {
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-12 text-white">
-      <h2 className="text-3xl font-extrabold mb-6">Most Recent Events</h2>
+      <h2 className="text-2xl font-bold px-13">Recent Events</h2>
 
       <div className="relative p-10">
         {/* Left arrow */}
@@ -66,7 +66,7 @@ export const FeaturedEvents: FC = () => {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="shrink-0 w-full md:w-1/3 px-3"
                 >
-                  <div className="relative h-full rounded-2xl bg-white/5 backdrop-blur-lg p-6 border border-white/10 hover:border-white/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group">
+                  <div className="relative h-full rounded-2xl bg-white/10 backdrop-blur-xs p-6 border border-white/10 hover:border-white/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group">
                     {/* Elegant glow bar */}
                     <div className="absolute top-0 left-0 w-full h-1.5 rounded-t-2xl bg-gradient-to-r from-primary/80 via-white/50 to-transparent blur-sm opacity-80 animate-[shine_4s_linear_infinite]" />
 

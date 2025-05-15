@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { SupportCards } from "./SupportCards";
-import Background from "./Background";
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +30,6 @@ const ContactSection: React.FC = () => {
 
   return (
     <>
-      <Background />
       <section className="px-4 py-12">
         {/* Intro */}
         <div className="max-w-2xl mx-auto text-center space-y-2">

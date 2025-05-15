@@ -57,7 +57,7 @@ const Leaderboard: React.FC = () => {
   return (
     <section className="max-w-5xl mx-auto mb-16 px-4">
       <h1 className="text-white text-2xl font-bold mb-8 flex items-center gap-2">
-        Recent Highlights
+        Current Highlights
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {staticLeaders.map((leader) => {

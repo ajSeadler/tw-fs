@@ -12,7 +12,8 @@ import Leaderboard from "./Leaderboard";
 import { Star } from "lucide-react";
 import handrailIcon from "/images/handrail.png";
 import vertIcon from "/images/vert.png";
-import Background from "./Background";
+import FeaturedEvents from "./FeaturedEvents";
+import TopPerformers from "./TopPerformers";
 
 type Leader = {
   skater: string;
@@ -155,10 +156,11 @@ const EventsWithResults: React.FC = () => {
 
   return (
     <>
-      <Background />
       <div className=" min-h-screen p-6">
         <Leaderboard leaders={leaders} loading={loading} />
-        {/* 2) Street/Vert toggle */}
+
+        <FeaturedEvents />
+        <TopPerformers />
 
         {/* Filters */}
         <div className="max-w-4xl mx-auto mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

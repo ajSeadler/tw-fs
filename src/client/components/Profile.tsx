@@ -4,7 +4,6 @@ import FavoriteEvents from "./FavoriteEvents";
 import FavoriteEventTypes from "./FavoriteEventTypes";
 import TopPerformerStats from "./TopPerformerStats";
 import { FavoriteCount } from "./FavoriteCount";
-import Background from "./Background";
 
 export const Profile = () => {
   const {
@@ -24,7 +23,6 @@ export const Profile = () => {
 
   return (
     <>
-      <Background />
       <div className="min-h-screen sm:px-30 md:px-30 px-0 py-12 flex flex-col items-center">
         {/* Profile Card */}
         <div className="relative w-full p-8">

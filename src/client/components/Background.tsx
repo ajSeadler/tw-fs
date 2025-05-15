@@ -87,7 +87,6 @@ const BackgroundBeams = React.memo(({ className }: { className?: string }) => {
                 transition={{
                   duration: Math.random() * 10 + 10,
                   ease: "easeInOut",
-                  repeat: Infinity,
                   delay: Math.random() * 10,
                 }}
               >

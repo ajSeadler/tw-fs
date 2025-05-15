@@ -5,6 +5,7 @@ import SiteStats from "./SiteStats";
 import GuestAccess from "./GuestAccess";
 import FeaturedEvents from "./FeaturedEvents";
 import TopPerformers from "./TopPerformers";
+
 // import BackgroundBeams from "./Background";
 
 const Home: FC = () => (

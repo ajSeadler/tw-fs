@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./client/components/Home"; // Import Home component
+
 import Navbar from "./client/components/Navbar";
 import SignUp from "./client/components/SignUp";
 import { Profile } from "./client/components/Profile";
@@ -13,13 +13,14 @@ import TermsAndConditions from "./client/components/TermsAndConditions";
 import ContactSection from "./client/components/ContactSection";
 import GeneralSupport from "./client/components/GeneralSupport";
 import ReportBug from "./client/components/ReportBug";
+import AuroraBackground from "./client/components/AuroraBackground";
 
 const App: FC = () => {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AuroraBackground />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/finishaccount" element={<FinishAccount />} />

@@ -5,12 +5,12 @@ import SiteStats from "./SiteStats";
 import GuestAccess from "./GuestAccess";
 import FeaturedEvents from "./FeaturedEvents";
 import TopPerformers from "./TopPerformers";
-import BackgroundBeams from "./Background";
+// import BackgroundBeams from "./Background";
 
 const Home: FC = () => (
   <>
     <div className="relative min-h-screen overflow-hidden ">
-      <BackgroundBeams />
+      {/* <BackgroundBeams /> */}
 
       <div className="text-white relative">
         <section className="relative z-10 py-32 px-6">
